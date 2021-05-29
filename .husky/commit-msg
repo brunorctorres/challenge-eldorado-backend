@@ -1,0 +1,8 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+COLOR='\033[1;35m'
+
+echo "${COLOR}[HUSKY] - git commit-msg hook"
+
+npx commitlint --edit ""

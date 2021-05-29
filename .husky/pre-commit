@@ -1,0 +1,8 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+COLOR='\033[1;36m'
+
+echo "${COLOR}[HUSKY] - git pre-commit hook"
+
+npx lint-staged

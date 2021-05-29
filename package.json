@@ -1,0 +1,44 @@
+{
+	"name": "challenge-eldorado-backend",
+	"version": "1.0.0",
+	"description": "Eldorado's challenge backend",
+	"main": "index.js",
+	"repository": "https://github.com/brunorctorres/challenge-eldorado.git",
+	"author": {
+		"name": "Bruno Calixto",
+		"email": "brunorctorres@gmail.com"
+	},
+	"license": "MIT",
+	"dependencies": {
+		"mysql": "^2.18.1",
+		"reflect-metadata": "^0.1.13",
+		"typeorm": "^0.2.32"
+	},
+	"devDependencies": {
+		"@commitlint/cli": "^12.1.4",
+		"@commitlint/config-conventional": "^12.1.4",
+		"@types/node": "^15.6.1",
+		"@typescript-eslint/eslint-plugin": "^4.25.0",
+		"@typescript-eslint/parser": "^4.25.0",
+		"eslint": "^7.27.0",
+		"eslint-config-prettier": "^8.3.0",
+		"husky": "^6.0.0",
+		"lint-staged": "^11.0.0",
+		"prettier": "2.3.0",
+		"typescript": "^4.3.2"
+	},
+	"scripts": {
+		"prepare": "husky install",
+		"lint": "prettier --check .",
+		"format": "prettier --write .",
+		"dev": "node",
+		"build": "node",
+		"start": "node"
+	},
+	"lint-staged": {
+		"src/**/*.ts": [
+			"eslint --fix",
+			"prettier --write"
+		]
+	}
+}
