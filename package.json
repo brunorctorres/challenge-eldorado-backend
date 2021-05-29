@@ -48,7 +48,7 @@
 		"format": "prettier --write .",
 		"dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/server.ts",
 		"build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files",
-		"start": "ts-node src/server.ts"
+		"start": "ts-node dist/server.js"
 	},
 	"lint-staged": {
 		"src/**/*.ts": [
