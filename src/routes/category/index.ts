@@ -17,7 +17,7 @@ categoriesRoutes.post('/', async (req, res) => {
 categoriesRoutes.delete('/', async (req, res) => {
 	const category = req.body
 	const categoryController = new CategoryController()
-	return res.json(await categoryController.delete(category))
+	return res.json(await categoryController.remove(category))
 })
 
 export default categoriesRoutes
