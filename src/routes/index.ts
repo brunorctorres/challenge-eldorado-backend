@@ -1,11 +1,11 @@
 // import app from 'app'
 import { Router } from 'express'
-import categoriesRoutes from './categories'
-import devicesRoutes from './devices'
+import categoryRoutes from './category'
+import deviceRoutes from './device'
 
 const routes = Router()
 
-routes.use('/categories', categoriesRoutes)
-routes.use('/devices', devicesRoutes)
+routes.use('/categories', categoryRoutes)
+routes.use('/devices', deviceRoutes)
 
 export default routes
