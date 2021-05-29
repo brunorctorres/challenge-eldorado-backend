@@ -11,7 +11,6 @@ export default class CategoryController {
 	public async find(): Promise<{ ok: boolean; categories?: Category[] }> {
 		try {
 			const categories = await this.repository.find()
-			console.log({ ok: true, categories })
 			return { ok: true, categories }
 		} catch (error) {
 			console.log(error)
