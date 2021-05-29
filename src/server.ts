@@ -5,9 +5,9 @@ const port = process.env.APP_PORT || 3000
 
 connection
 	.then(async () => {
-		console.log('📦 Connected to database!')
+		console.log('📦 Connected to AWS RDS Database!')
 		app.listen(port, () => {
-			console.log(`App listening at http://localhost:${port}`)
+			console.log(`App listening at ${port}`)
 		})
 	})
 	.catch((error) => {
