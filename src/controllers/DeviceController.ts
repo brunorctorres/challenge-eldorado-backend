@@ -11,7 +11,6 @@ export default class DeviceController {
 	public async find(): Promise<{ ok: boolean; devices?: Device[] }> {
 		try {
 			const devices = await this.repository.find()
-			console.log({ ok: true, devices })
 			return { ok: true, devices }
 		} catch (error) {
 			console.log(error)
