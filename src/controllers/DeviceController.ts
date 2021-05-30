@@ -1,40 +1,57 @@
-import { Repository, getRepository } from 'typeorm'
+import { Request, Response } from 'express'
+import { getRepository } from 'typeorm'
 import { Device } from '../typeorm/entity/Device'
 
 export default class DeviceController {
-	private repository: Repository<Device>
-
-	constructor() {
-		this.repository = getRepository(Device)
-	}
-
-	public async find(): Promise<{ ok: boolean; devices?: Device[] }> {
+	public static find = async (
+		_req: Request,
+		res: Response
+	): Promise<Response> => {
+		const repository = getRepository(Device)
 		try {
-			const devices = await this.repository.find()
-			return { ok: true, devices }
+			const devices = await repository.find()
+			return res.json({ devices })
 		} catch (error) {
 			console.log(error)
-			return { ok: false }
+			return res.status(500).json({ error: true })
 		}
 	}
 
-	public async save(device: Device): Promise<{ ok: boolean }> {
+	public static save = async (
+		req: Request,
+		res: Response
+	): Promise<Response> => {
+		const repository = getRepository(Device)
+		const device = req.body
 		try {
-			await this.repository.save(device)
-			return { ok: true }
+			const result = await repository.save(device)
+			console.log(result)
+			return res.json({ created: true })
 		} catch (error) {
 			console.log(error)
-			return { ok: false }
+			return res.status(500).json({ created: false })
 		}
 	}
 
-	public async remove(device: Device): Promise<{ ok: boolean }> {
+	public static delete = async (
+		req: Request,
+		res: Response
+	): Promise<Response> => {
+		const repository = getRepository(Device)
+		const device = req.params.id
+		console.log(`device id: ${device}`)
 		try {
-			await this.repository.remove(device)
-			return { ok: true }
+			const result = await repository.delete(device)
+			console.log(result.affected)
+			if (result.affected) return res.json({ removed: true })
+			else
+				return res.json({
+					removed: false,
+					message: 'device not found to remove',
+				})
 		} catch (error) {
 			console.log(error)
-			return { ok: false }
+			return res.status(500).json({ removed: false })
 		}
 	}
 }
