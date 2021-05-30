@@ -1,40 +1,57 @@
-import { Repository, getRepository } from 'typeorm'
+import { Request, Response } from 'express'
+import { getRepository } from 'typeorm'
 import { Category } from '../typeorm/entity/Category'
 
 export default class CategoryController {
-	private repository: Repository<Category>
-
-	constructor() {
-		this.repository = getRepository(Category)
-	}
-
-	public async find(): Promise<{ ok: boolean; categories?: Category[] }> {
+	public static find = async (
+		_req: Request,
+		res: Response
+	): Promise<Response> => {
+		const repository = getRepository(Category)
 		try {
-			const categories = await this.repository.find()
-			return { ok: true, categories }
+			const categories = await repository.find()
+			return res.json({ categories })
 		} catch (error) {
 			console.log(error)
-			return { ok: false }
+			return res.status(500).json({ error: true })
 		}
 	}
 
-	public async save(category: Category): Promise<{ ok: boolean }> {
+	public static save = async (
+		req: Request,
+		res: Response
+	): Promise<Response> => {
+		const repository = getRepository(Category)
+		const category = req.body
 		try {
-			await this.repository.save(category)
-			return { ok: true }
+			const result = await repository.save(category)
+			console.log(result)
+			return res.json({ created: true })
 		} catch (error) {
 			console.log(error)
-			return { ok: false }
+			return res.status(500).json({ created: false })
 		}
 	}
 
-	public async remove(category: Category): Promise<{ ok: boolean }> {
+	public static delete = async (
+		req: Request,
+		res: Response
+	): Promise<Response> => {
+		const repository = getRepository(Category)
+		const category = req.params.id
+		console.log(`category id: ${category}`)
 		try {
-			await this.repository.remove(category)
-			return { ok: true }
+			const result = await repository.delete(category)
+			console.log(result)
+			if (result.affected) return res.json({ removed: true })
+			else
+				return res.json({
+					removed: false,
+					message: 'category not found to remove',
+				})
 		} catch (error) {
 			console.log(error)
-			return { ok: false }
+			return res.status(500).json({ removed: false })
 		}
 	}
 }
